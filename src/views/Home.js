@@ -2,7 +2,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import AuthLayout from "../containers/Header";
+import AuthLayout from "../hoc/AuthLayout";
 import AlbumList from "../components/AlbumList";
 
 const ALBUMS_QUERY = gql`
@@ -21,9 +21,9 @@ const ALBUMS_QUERY = gql`
 class Home extends React.Component {
   render() {
     return (
-      <div className="container">
-        test
-      </div>
+      <Query query={ALBUMS_QUERY}>
+        {({ loading, error, data }) => <AlbumList albums={data.albums} />}
+      </Query>
     );
   }
 }

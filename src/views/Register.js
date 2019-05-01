@@ -56,64 +56,60 @@ class Register extends React.Component<Props> {
       <div className="notification is-danger">{this.props.errors.message}</div>
     ) : null;
     return (
-      <GuestLayout>
-        <div className="columns">
-          <div className="column is-half is-offset-one-quarter">
-            {alert}
-            <div className="box">
-              <form>
-                <BaseInput
-                  name="name"
-                  type="text"
-                  value={this.props.values.name}
-                  onChange={this.props.handleChange("name")}
-                  label="Name"
-                  errorText={
-                    this.props.touched.name ? this.props.errors.name : ""
-                  }
-                  placeholder="John"
-                  onBlur={this.props.handleBlur("name")}
-                />
-                <BaseInput
-                  name="email"
-                  type="email"
-                  value={this.props.values.email}
-                  onChange={this.props.handleChange("email")}
-                  label="Email"
-                  errorText={
-                    this.props.touched.email ? this.props.errors.email : ""
-                  }
-                  placeholder="test@test.com"
-                  onBlur={this.props.handleBlur("email")}
-                />
-                <BaseInput
-                  name="password"
-                  type="password"
-                  value={this.props.values.password}
-                  onChange={this.props.handleChange("password")}
-                  label="Password"
-                  errorText={
-                    this.props.touched.password
-                      ? this.props.errors.password
-                      : ""
-                  }
-                  onBlur={this.props.handleBlur("password")}
-                />
-                <BaseButton
-                  type="primary"
-                  text="Register"
-                  onClick={this.props.handleSubmit}
-                />
-                <div className="field">
-                  Already have an account? <Link to="/login">Log in.</Link>
-                </div>
-              </form>
-            </div>
+      <div className="columns">
+        <div className="column is-half is-offset-one-quarter">
+          {alert}
+          <div className="box">
+            <form>
+              <BaseInput
+                name="name"
+                type="text"
+                value={this.props.values.name}
+                onChange={this.props.handleChange("name")}
+                label="Name"
+                errorText={
+                  this.props.touched.name ? this.props.errors.name : ""
+                }
+                placeholder="John"
+                onBlur={this.props.handleBlur("name")}
+              />
+              <BaseInput
+                name="email"
+                type="email"
+                value={this.props.values.email}
+                onChange={this.props.handleChange("email")}
+                label="Email"
+                errorText={
+                  this.props.touched.email ? this.props.errors.email : ""
+                }
+                placeholder="test@test.com"
+                onBlur={this.props.handleBlur("email")}
+              />
+              <BaseInput
+                name="password"
+                type="password"
+                value={this.props.values.password}
+                onChange={this.props.handleChange("password")}
+                label="Password"
+                errorText={
+                  this.props.touched.password ? this.props.errors.password : ""
+                }
+                onBlur={this.props.handleBlur("password")}
+              />
+              <BaseButton
+                type="primary"
+                text="Register"
+                onClick={this.props.handleSubmit}
+              />
+              <div className="field">
+                Already have an account? <Link to="/login">Log in.</Link>
+              </div>
+            </form>
           </div>
         </div>
-      </GuestLayout>
+      </div>
     );
   }
 }
 
-export default withApollo(enhancer(Register));
+export default withApollo(enhancer(GuestLayout(Register)));
