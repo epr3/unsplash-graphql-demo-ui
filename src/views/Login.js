@@ -73,4 +73,4 @@ class Login extends React.Component<Props> {
   }
 }
 
-export default withApollo((enhancer(Login));
+export default withApollo(enhancer(Login));

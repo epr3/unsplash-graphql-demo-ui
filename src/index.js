@@ -6,9 +6,9 @@ import { ApolloClient } from "apollo-client";
 import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { setContext } from "apollo-link-context";
-import serviceWorker from "./serviceWorker";
+import * as serviceWorker from "./serviceWorker";
 
-import 'bulma/css/bulma.min.css';
+import "bulma/css/bulma.min.css";
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("unsplash_demo:access");
