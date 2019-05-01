@@ -1,22 +1,8 @@
 import React from "react";
 import classNames from "classnames";
-import { FormikErrors } from "formik";
+import PropTypes from "prop-types";
 
-interface Props {
-  label?: string;
-  name: string;
-  type: string;
-  size?: string;
-  disabled?: boolean;
-  readOnly?: boolean;
-  errorText: string | FormikErrors<any> | undefined;
-  value: string;
-  placeholder?: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
-}
-
-const BaseInput: React.FC<Props> = (props: Props) => {
+const BaseInput = props => {
   const {
     label,
     name,
@@ -54,6 +40,19 @@ const BaseInput: React.FC<Props> = (props: Props) => {
       {props.errorText && <p className="help is-danger">{errorText}</p>}
     </div>
   );
+};
+BaseInput.propTypes = {
+  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  size: PropTypes.string,
+  disabled: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  errorText: PropTypes.string,
+  onChange: PropTypes.func,
+  value: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  onBlur: PropTypes.func.isRequired
 };
 
 BaseInput.defaultProps = {

@@ -1,20 +1,8 @@
 import React from "react";
 import classNames from "classnames";
+import PropTypes from "prop-types";
 
-interface Props {
-  text: string;
-  size?: string;
-  type?: string;
-  fullWidth?: boolean;
-  outlined?: boolean;
-  inverted?: boolean;
-  rounded?: boolean;
-  disabled?: boolean;
-  loading?: boolean;
-  onClick: () => void;
-}
-
-const BaseButton: React.FC<Props> = (props: Props) => {
+const BaseButton = props => {
   const {
     size,
     type,
@@ -41,6 +29,19 @@ const BaseButton: React.FC<Props> = (props: Props) => {
       {text}
     </button>
   );
+};
+
+BaseButton.propTypes = {
+  size: PropTypes.string,
+  type: PropTypes.string,
+  fullWidth: PropTypes.bool,
+  outlined: PropTypes.bool,
+  disabled: PropTypes.bool,
+  inverted: PropTypes.bool,
+  rounded: PropTypes.bool,
+  loading: PropTypes.bool,
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 BaseButton.defaultProps = {

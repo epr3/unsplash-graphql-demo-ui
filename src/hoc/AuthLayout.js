@@ -1,7 +1,7 @@
 import React from "react";
 
-const Header: React.FC = ({ children }) => (
+const AuthLayout = ({ children }) => (
   <div className="container is-fluid">{children}</div>
 );
 
-export default Header;
+export default AuthLayout;

@@ -7,7 +7,7 @@ import NotFound from "./components/NotFound";
 import Private from "./views/Private";
 import PrivateRoute from "./hoc/PrivateRoute";
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <div className="App">
       <Router>

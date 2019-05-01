@@ -1,21 +1,13 @@
 import React from "react";
-import { withFormik, FormikProps } from "formik";
+import { withFormik } from "formik";
 import * as yup from "yup";
-import { RouteComponentProps } from "@reach/router";
 import GuestLayout from "../hoc/GuestLayout";
 import BaseInput from "../components/BaseInput";
 import BaseButton from "../components/BaseButton";
-import { graphql } from "react-apollo";
+import { withApollo } from "react-apollo";
 import gql from "graphql-tag";
 
-interface LoginValues {
-  email: string;
-  password: string;
-}
-
-type Props = FormikProps<LoginValues>;
-
-const enhancer = withFormik<RouteComponentProps, LoginValues>({
+const enhancer = withFormik({
   mapPropsToValues: () => ({
     email: "",
     password: ""
@@ -81,4 +73,4 @@ class Login extends React.Component<Props> {
   }
 }
 
-export default graphql(LOGIN_MUTATION)(enhancer(Login));
+export default withApollo((enhancer(Login));

@@ -1,11 +1,7 @@
 import React from "react";
-import { RouteComponentProps, Redirect } from "@reach/router";
+import { Redirect } from "@reach/router";
 
-interface Props extends RouteComponentProps {
-  component: (new (props: any) => React.Component) | React.FC;
-}
-
-const PrivateRoute: React.FC<Props> = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
   const authToken = localStorage.getItem("unsplash_demo:access");
   const renderedComponent = !!authToken ? (
     <Component {...rest} />
