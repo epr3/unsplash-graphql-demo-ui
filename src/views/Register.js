@@ -8,18 +8,24 @@ import { withApollo } from "react-apollo";
 import gql from "graphql-tag";
 import { Link, navigate } from "@reach/router";
 
-const LOGIN_MUTATION = gql`
-  mutation LoginMutation($email: String!, $password: String!) {
-    login(email: $email, password: $password)
+const REGISTER_MUTATION = gql`
+  mutation RegisterMutation(
+    $email: String!
+    $password: String!
+    $name: String!
+  ) {
+    register(email: $email, password: $password, name: $name)
   }
 `;
 
 const enhancer = withFormik({
   mapPropsToValues: () => ({
     email: "",
-    password: ""
+    password: "",
+    name: ""
   }),
   validationSchema: yup.object().shape({
+    name: yup.string().required(),
     email: yup
       .string()
       .email()
@@ -29,10 +35,14 @@ const enhancer = withFormik({
   handleSubmit: async (values, { props: { client }, setErrors }) => {
     try {
       const response = await client.mutate({
-        mutation: LOGIN_MUTATION,
-        variables: { email: values.email, password: values.password }
+        mutation: REGISTER_MUTATION,
+        variables: {
+          email: values.email,
+          password: values.password,
+          name: values.name
+        }
       });
-      localStorage.setItem("unsplash_demo:access", response.data.login);
+      localStorage.setItem("unsplash_demo:access", response.data.register);
       navigate("/", { replace: true });
     } catch (e) {
       setErrors({ message: e.message });
@@ -40,7 +50,7 @@ const enhancer = withFormik({
   }
 });
 
-class Login extends React.Component<Props> {
+class Register extends React.Component<Props> {
   render() {
     const alert = this.props.errors.message ? (
       <div className="notification is-danger">{this.props.errors.message}</div>
@@ -52,6 +62,18 @@ class Login extends React.Component<Props> {
             {alert}
             <div className="box">
               <form>
+                <BaseInput
+                  name="name"
+                  type="text"
+                  value={this.props.values.name}
+                  onChange={this.props.handleChange("name")}
+                  label="Name"
+                  errorText={
+                    this.props.touched.name ? this.props.errors.name : ""
+                  }
+                  placeholder="John"
+                  onBlur={this.props.handleBlur("name")}
+                />
                 <BaseInput
                   name="email"
                   type="email"
@@ -79,11 +101,11 @@ class Login extends React.Component<Props> {
                 />
                 <BaseButton
                   type="primary"
-                  text="Login"
+                  text="Register"
                   onClick={this.props.handleSubmit}
                 />
                 <div className="field">
-                  <Link to="/register">Create an account</Link>
+                  Already have an account? <Link to="/login">Log in.</Link>
                 </div>
               </form>
             </div>
@@ -94,4 +116,4 @@ class Login extends React.Component<Props> {
   }
 }
 
-export default withApollo(enhancer(Login));
+export default withApollo(enhancer(Register));

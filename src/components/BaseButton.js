@@ -25,7 +25,12 @@ const BaseButton = props => {
     "is-loading": loading
   });
   return (
-    <button disabled={disabled} className={computedClass} onClick={onClick}>
+    <button
+      type="button"
+      disabled={disabled}
+      className={computedClass}
+      onClick={onClick}
+    >
       {text}
     </button>
   );
