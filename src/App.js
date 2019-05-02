@@ -1,10 +1,9 @@
 import React from "react";
-import logo from "./logo.svg";
 import { Router } from "@reach/router";
 
 import Login from "./views/Login";
 import Register from "./views/Register";
-import NotFound from "./components/NotFound";
+import Album from "./views/Album";
 import Home from "./views/Home";
 import PrivateRoute from "./hoc/PrivateRoute";
 
@@ -15,6 +14,7 @@ const App = () => {
         <Login path="/login" />
         <Register path="/register" />
         <PrivateRoute component={Home} path="/" />
+        <PrivateRoute component={Album} path="/albums/new" />
       </Router>
     </div>
   );

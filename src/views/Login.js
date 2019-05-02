@@ -40,7 +40,7 @@ const enhancer = withFormik({
   }
 });
 
-class Login extends React.Component<Props> {
+class Login extends React.Component {
   render() {
     const alert = this.props.errors.message ? (
       <div className="notification is-danger">{this.props.errors.message}</div>

@@ -13,6 +13,7 @@ const ALBUMS_QUERY = gql`
       images {
         id
         unsplashId
+        imageLink
       }
     }
   }
@@ -22,7 +23,13 @@ class Home extends React.Component {
   render() {
     return (
       <Query query={ALBUMS_QUERY}>
-        {({ loading, error, data }) => <AlbumList albums={data.albums} />}
+        {({ loading, error, data }) =>
+          data.albums && data.albums.length ? (
+            <AlbumList albums={data.albums} />
+          ) : (
+            <p>No albums to show.</p>
+          )
+        }
       </Query>
     );
   }

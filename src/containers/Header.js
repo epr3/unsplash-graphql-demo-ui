@@ -1,6 +1,9 @@
 import React from "react";
+import { Link } from "@reach/router";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+
+import logo from "../logo.svg";
 
 const ME_QUERY = gql`
   {
@@ -18,12 +21,7 @@ class Header extends React.Component {
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="https://bulma.io">
-            <img
-              alt="logo"
-              src="https://bulma.io/images/bulma-logo.png"
-              width="112"
-              height="28"
-            />
+            <img alt="logo" src={logo} width="100" height="100" />
           </a>
           <span
             role="button"
@@ -39,9 +37,13 @@ class Header extends React.Component {
         </div>
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">
-            <a className="navbar-item">Home</a>
+            <Link to="/" className="navbar-item">
+              Home
+            </Link>
 
-            <a className="navbar-item">Create an album</a>
+            <Link to="/albums/new" className="navbar-item">
+              Create an album
+            </Link>
           </div>
           <Query query={ME_QUERY}>
             {({ loading, error, data }) => (
