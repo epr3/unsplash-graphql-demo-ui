@@ -1,9 +1,9 @@
 import React from "react";
-import { Query, withApollo } from "react-apollo";
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
 import AuthLayout from "../hoc/AuthLayout";
-import AlbumList from "../components/AlbumList";
+import AlbumList from "../containers/AlbumList";
 
 const ALBUMS_QUERY = gql`
   query MyAlbums($userId: ID!) {
@@ -23,31 +23,14 @@ const ALBUMS_QUERY = gql`
   }
 `;
 
-const ME_QUERY = gql`
-  query meQuery {
-    me {
-      id
-      email
-      name
-    }
-  }
-`;
-
 class Account extends React.Component {
-  state = { user: null };
-  async componentDidMount() {
-    const response = await this.props.client.query({ query: ME_QUERY });
-    this.setState({
-      user: response.data.me
-    });
-  }
   render() {
-    const user = this.state.user;
+    const user = this.props.user;
     const display = user ? (
       <Query query={ALBUMS_QUERY} variables={{ userId: user.id }}>
         {({ loading, error, data }) =>
           data.albums && data.albums.length ? (
-            <AlbumList albums={data.albums} />
+            <AlbumList albums={data.albums} isEditable userId={user.id} />
           ) : (
             <p>No albums to show.</p>
           )
@@ -60,4 +43,4 @@ class Account extends React.Component {
   }
 }
 
-export default withApollo(AuthLayout(Account));
+export default AuthLayout(Account);

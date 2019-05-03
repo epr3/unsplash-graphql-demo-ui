@@ -12,9 +12,28 @@ const CREATE_ALBUM_MUTATION = gql`
     createAlbum(name: $name, images: $images) {
       id
       name
+      userId
       images {
         id
         imageLink
+      }
+    }
+  }
+`;
+
+const ALBUMS_QUERY = gql`
+  {
+    albums {
+      id
+      name
+      userId
+      images {
+        id
+        unsplashId
+        imageLink
+      }
+      user {
+        name
       }
     }
   }
@@ -32,11 +51,19 @@ const enhancer = withFormik({
   enableReinitialize: true,
   handleSubmit: async (values, { props: { client }, setErrors }) => {
     try {
-      const response = await client.mutate({
+      await client.mutate({
         mutation: CREATE_ALBUM_MUTATION,
-        variables: { name: values.name, images: values.images }
+        variables: { name: values.name, images: values.images },
+        update: (proxy, { data: { createAlbum } }) => {
+          try {
+            const data = proxy.readQuery({ query: ALBUMS_QUERY });
+            data.albums.push(createAlbum);
+            proxy.writeQuery({ query: ALBUMS_QUERY, data });
+          } catch (error) {
+            console.error(error);
+          }
+        }
       });
-      console.log(response);
       navigate("/", { replace: true });
     } catch (e) {
       setErrors({ message: e.message });

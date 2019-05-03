@@ -18,6 +18,7 @@ class Image extends React.Component {
     const className = classNames("card", {
       "is-selected": this.state.active
     });
+
     return (
       <div className={className} onClick={this.setActive}>
         <div className="card-image">

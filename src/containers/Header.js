@@ -1,16 +1,20 @@
 import React from "react";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 
 import logo from "../logo.svg";
 
 class Header extends React.Component {
+  logOut = () => {
+    localStorage.removeItem("unsplash:access");
+    navigate("/login", { replace: true });
+  };
   render() {
     return (
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <a className="navbar-item" href="https://bulma.io">
+          <Link to="/" className="navbar-item">
             <img alt="logo" src={logo} width="100" height="100" />
-          </a>
+          </Link>
           <span
             role="button"
             className="navbar-burger burger"
@@ -40,9 +44,9 @@ class Header extends React.Component {
                 <Link to="/me" className="button is-primary">
                   <strong>My account</strong>
                 </Link>
-                <a className="button is-primary">
+                <button className="button is-primary" onClick={this.logOut}>
                   <strong>Log out</strong>
-                </a>
+                </button>
               </div>
             </div>
           </div>

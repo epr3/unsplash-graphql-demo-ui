@@ -1,9 +1,9 @@
 import React from "react";
-import { Query } from "react-apollo";
+import { Query, withApollo } from "react-apollo";
 import gql from "graphql-tag";
 
 import AuthLayout from "../hoc/AuthLayout";
-import AlbumList from "../components/AlbumList";
+import AlbumList from "../containers/AlbumList";
 
 const ALBUMS_QUERY = gql`
   {
@@ -24,6 +24,11 @@ const ALBUMS_QUERY = gql`
 `;
 
 class Home extends React.Component {
+  componentDidMount() {
+    this.props.client.query({
+      query: ALBUMS_QUERY
+    });
+  }
   render() {
     return (
       <Query query={ALBUMS_QUERY}>
@@ -39,4 +44,4 @@ class Home extends React.Component {
   }
 }
 
-export default AuthLayout(Home);
+export default withApollo(AuthLayout(Home));
