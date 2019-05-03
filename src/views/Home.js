@@ -10,10 +10,14 @@ const ALBUMS_QUERY = gql`
     albums {
       id
       name
+      userId
       images {
         id
         unsplashId
         imageLink
+      }
+      user {
+        name
       }
     }
   }

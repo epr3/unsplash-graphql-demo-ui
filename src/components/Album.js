@@ -25,11 +25,17 @@ const Album = props => {
     props.album && props.album.images && props.album.images.length
       ? props.album.images.map(item => (
           <div key={item.unsplashId} className="swiper-slide">
-            <Image src={item.imageLink} onClick={() => {}}/>
+            <Image src={item.imageLink} onClick={() => {}} />
           </div>
         ))
       : null;
-  return <Swiper {...params}>{slides}</Swiper>;
+  return (
+    <div className="card">
+      <h5 className="title">{props.album.name}</h5>
+      <span className="subtitle">By {props.album.user.name}</span>
+      <Swiper {...params}>{slides}</Swiper>
+    </div>
+  );
 };
 
 export default Album;

@@ -1,19 +1,7 @@
 import React from "react";
 import { Link } from "@reach/router";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
 
 import logo from "../logo.svg";
-
-const ME_QUERY = gql`
-  {
-    me {
-      id
-      email
-      name
-    }
-  }
-`;
 
 class Header extends React.Component {
   render() {
@@ -45,22 +33,19 @@ class Header extends React.Component {
               Create an album
             </Link>
           </div>
-          <Query query={ME_QUERY}>
-            {({ loading, error, data }) => (
-              <div className="navbar-end">
-                <div className="navbar-item">
-                  <div className="buttons">
-                    <a className="button is-primary">
-                      <strong>My account</strong>
-                    </a>
-                    <a className="button is-primary">
-                      <strong>Log out</strong>
-                    </a>
-                  </div>
-                </div>
+
+          <div className="navbar-end">
+            <div className="navbar-item">
+              <div className="buttons">
+                <Link to="/me" className="button is-primary">
+                  <strong>My account</strong>
+                </Link>
+                <a className="button is-primary">
+                  <strong>Log out</strong>
+                </a>
               </div>
-            )}
-          </Query>
+            </div>
+          </div>
         </div>
       </nav>
     );

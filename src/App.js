@@ -1,10 +1,14 @@
 import React from "react";
 import { Router } from "@reach/router";
 
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+
 import Login from "./views/Login";
 import Register from "./views/Register";
-import Album from "./views/Album";
+import NewAlbum from "./views/NewAlbum";
 import Home from "./views/Home";
+import Account from "./views/Account";
 import PrivateRoute from "./hoc/PrivateRoute";
 
 const App = () => {
@@ -14,7 +18,8 @@ const App = () => {
         <Login path="/login" />
         <Register path="/register" />
         <PrivateRoute component={Home} path="/" />
-        <PrivateRoute component={Album} path="/albums/new" />
+        <PrivateRoute component={NewAlbum} path="/albums/new" />
+        <PrivateRoute component={Account} path="/me" />
       </Router>
     </div>
   );
